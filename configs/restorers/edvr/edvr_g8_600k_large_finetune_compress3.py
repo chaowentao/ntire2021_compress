@@ -148,7 +148,7 @@ data = dict(
 optimizers = dict(generator=dict(type='Adam', lr=4e-4, betas=(0.9, 0.999)))
 
 # learning policy
-total_iters = 150000
+total_iters = 250000
 lr_config = dict(
     policy='CosineRestart',
     by_epoch=False,
@@ -158,7 +158,7 @@ lr_config = dict(
 
 checkpoint_config = dict(interval=10000, save_optimizer=True, by_epoch=False)
 # remove gpu_collect=True in non distributed training
-evaluation = dict(interval=10000, save_image=False, gpu_collect=True)
+evaluation = dict(interval=50000, save_image=False, gpu_collect=True)
 log_config = dict(
     interval=100,
     hooks=[

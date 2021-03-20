@@ -73,7 +73,7 @@ test_pipeline = [
         mean=[0, 0, 0],
         std=[1, 1, 1],
         to_rgb=True),
-    dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
+    # dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
     dict(
         type='Collect',
         keys=['lq', 'gt'],
@@ -135,11 +135,11 @@ data = dict(
         # ann_file='./data/video_compress_track2/meta_info_Compress_Val.txt',
         lq_folder='./data/video_compress_track2/images/test',
         gt_folder='./data/video_compress_track2/images/test',
-        ann_file='./data/video_compress_track2/meta_info_Compress_min_Test.txt',
+        ann_file='./data/video_compress_track2/meta_info_Compress_Test.txt',
         num_input_frames=5,
         pipeline=test_pipeline,
         scale=1,
-        val_partition='test_1',
+        val_partition='test',
         test_mode=True),
 )
 
@@ -147,7 +147,7 @@ data = dict(
 optimizers = dict(generator=dict(type='Adam', lr=2e-4, betas=(0.9, 0.999)))
 
 # learning policy
-total_iters = 150000
+total_iters = 250000
 lr_config = dict(
     policy='CosineRestart',
     by_epoch=False,
@@ -157,7 +157,7 @@ lr_config = dict(
 
 checkpoint_config = dict(interval=5000, save_optimizer=True, by_epoch=False)
 # remove gpu_collect=True in non distributed training
-evaluation = dict(interval=5000, save_image=False, gpu_collect=True)
+evaluation = dict(interval=50000, save_image=False, gpu_collect=True)
 log_config = dict(
     interval=100,
     hooks=[

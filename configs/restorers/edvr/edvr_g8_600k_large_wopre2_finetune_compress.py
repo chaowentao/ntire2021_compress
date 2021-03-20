@@ -73,7 +73,7 @@ test_pipeline = [
         mean=[0, 0, 0],
         std=[1, 1, 1],
         to_rgb=True),
-    dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
+    # dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
     dict(
         type='Collect',
         keys=['lq', 'gt'],
@@ -91,11 +91,11 @@ data = dict(
         times=10,
         dataset=dict(
             type=train_dataset_type,
-            lq_folder='./data/video_compress_track2/test_youtube/images/train',
+            lq_folder='./data/video_compress_track3/test_youtube/images/train',
             gt_folder=
-            './data/video_compress_track2/test_youtube/images/train_raw',
+            './data/video_compress_track3/test_youtube/images/train_raw',
             ann_file=
-            './data/video_compress_track2/test_youtube/images/meta_info_Compress_extra_test.txt',
+            './data/video_compress_track3/test_youtube/images/meta_info_Compress_extra_test.txt',
             num_input_frames=5,
             pipeline=train_pipeline,
             scale=1,
@@ -106,20 +106,23 @@ data = dict(
     val_workers_per_gpu=1,
     val=dict(
         type=val_dataset_type,
-        lq_folder='./data/video_compress_track2/test_youtube/images/train',
-        gt_folder='./data/video_compress_track2/test_youtube/images/train_raw',
+        lq_folder='./data/video_compress_track3/test_youtube/images/train',
+        gt_folder='./data/video_compress_track3/test_youtube/images/train_raw',
         ann_file=
-        './data/video_compress_track2/test_youtube/images/meta_info_Compress_extra_test.txt',
+        './data/video_compress_track3/test_youtube/images/meta_info_Compress_extra_test.txt',
         num_input_frames=5,
         pipeline=test_pipeline,
         scale=1,
-        val_partition='test_extra_1',
+        val_partition='test_extra_3',
         test_mode=True),
     test=dict(
         type=val_dataset_type,
-        lq_folder='./data/video_compress_track2/images/val',
-        gt_folder='./data/video_compress_track2/images/val',
-        ann_file='./data/video_compress_track2/meta_info_Compress_Val.txt',
+        lq_folder='./data/video_compress_track2/images/test',
+        gt_folder='./data/video_compress_track2/images/test',
+        ann_file='./data/video_compress_track2/meta_info_Compress_Test.txt',
+        # lq_folder='./data/video_compress_track3/images/train',
+        # gt_folder='./data/video_compress_track3/images/train_raw',
+        # ann_file='./data/video_compress_track3/meta_info_Compress_GT.txt',
         num_input_frames=5,
         pipeline=test_pipeline,
         scale=1,
@@ -155,7 +158,7 @@ visual_config = None
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = f'./work_dirs/{exp_name}'
-load_from = './work_dirs/edvr_g8_600k_large_wopre2_compress/iter_300000.pth'
+load_from = './work_dirs/edvr_g8_600k_large_wopre2_compress3/iter_295000.pth'
 # load_from = None
 resume_from = None
 workflow = [('train', 1)]

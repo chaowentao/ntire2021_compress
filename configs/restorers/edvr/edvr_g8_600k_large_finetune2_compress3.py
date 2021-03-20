@@ -1,4 +1,4 @@
-exp_name = 'edvr_g8_600k_large_finetune2_compress3'
+exp_name = 'edvr_g8_600k_large_finetune2_compress3_8'
 
 # model settings
 model = dict(
@@ -16,7 +16,7 @@ model = dict(
         hr_in=True,
         with_predeblur=True,
         with_tsa=True),
-    pixel_loss=dict(type='CharbonnierLoss', loss_weight=1.0, reduction='sum'))
+    pixel_loss=dict(type='CharbonnierLoss', loss_weight=2.0, reduction='sum'))
 # model training and testing settings
 train_cfg = dict(tsa_iter=0)
 test_cfg = dict(metrics=['PSNR'], crop_border=0)
@@ -73,7 +73,7 @@ test_pipeline = [
         mean=[0, 0, 0],
         std=[1, 1, 1],
         to_rgb=True),
-    dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
+    # dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
     dict(
         type='Collect',
         keys=['lq', 'gt'],
@@ -83,8 +83,8 @@ test_pipeline = [
 
 data = dict(
     # train
-    samples_per_gpu=4,
-    workers_per_gpu=3,
+    samples_per_gpu=2,
+    workers_per_gpu=2,
     drop_last=True,
     train=dict(
         type='RepeatDataset',
@@ -130,16 +130,17 @@ data = dict(
         # val_partition='test_extra',
         # test_mode=True),
         type=val_dataset_type,
-        lq_folder='./data/video_compress_track3/images/val',
-        gt_folder='./data/video_compress_track3/images/val',
-        ann_file='./data/video_compress_track3/meta_info_Compress_Val.txt',
-        # lq_folder='./data/video_compress_track3/images/test',
-        # gt_folder='./data/video_compress_track3/images/test',
-        # ann_file='./data/video_compress_track3/meta_info_Compress_min_Test.txt',
+        # lq_folder='./data/video_compress_track3/test_youtube/images/train',
+        # gt_folder='./data/video_compress_track3/test_youtube/images/train_raw',
+        # ann_file=
+        # './data/video_compress_track3/test_youtube/images/meta_info_Compress_extra_test.txt',
+        lq_folder='./data/video_compress_track3/images/test',
+        gt_folder='./data/video_compress_track3/images/test',
+        ann_file='./data/video_compress_track3/meta_info_Compress_Test.txt',
         num_input_frames=5,
         pipeline=test_pipeline,
         scale=1,
-        val_partition='test_1',
+        val_partition='test',
         test_mode=True),
 )
 

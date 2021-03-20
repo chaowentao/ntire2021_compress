@@ -89,11 +89,11 @@ class EDVR(BasicRestorer):
     def multi_scale_test(self, lq):
         # output = self.test_crop_forward(lq)
         output_f = self.flipx4_forward(lq)
-        output_r = self.rotx4_forward(lq)
-        output = (output_r + output_f) / 2
+        # output_r = self.rotx4_forward(lq)
+        # output = (output_r + output_f) / 2
 
         # output = self.rotx4_forward(lq)
-        return output
+        return output_f
 
     def flipx4_forward(self, lq):
         """Flip testing with X4 self ensemble, i.e., normal, flip H, flip W, flip H and W

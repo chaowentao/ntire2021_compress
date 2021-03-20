@@ -73,7 +73,7 @@ test_pipeline = [
         mean=[0, 0, 0],
         std=[1, 1, 1],
         to_rgb=True),
-    dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
+    # dict(type='PairedRandomCrop', gt_patch_size=512, random=False),
     dict(
         type='Collect',
         keys=['lq', 'gt'],
@@ -117,9 +117,9 @@ data = dict(
         test_mode=True),
     test=dict(
         type=val_dataset_type,
-        lq_folder='./data/video_compress_track3/images/val',
-        gt_folder='./data/video_compress_track3/images/val',
-        ann_file='./data/video_compress_track3/meta_info_Compress_Val.txt',
+        lq_folder='./data/video_compress_track3/images/test',
+        gt_folder='./data/video_compress_track3/images/test',
+        ann_file='./data/video_compress_track3/meta_info_Compress_Test.txt',
         # lq_folder='./data/video_compress_track3/images/train',
         # gt_folder='./data/video_compress_track3/images/train_raw',
         # ann_file='./data/video_compress_track3/meta_info_Compress_GT.txt',
